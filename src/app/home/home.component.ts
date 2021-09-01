@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -6,19 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  registerMode = false;
+  //registerMode = false;
+  model: any = {}
 
-  constructor() { }
+  constructor(public accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  registerToggle() {
-    this.registerMode = !this.registerMode;
+
+  login() {
+    this.accountService.login(this.model).subscribe(response => {
+      this.router.navigateByUrl('/main');
+    })
   }
 
-  cancelRegisterMode(event: boolean) {
-    this.registerMode = event;
-  }
+  // logout() {
+  //   this.accountService.logout();
+  //   this.model.username = "";
+  //   this.model.password = "";
+  //   this.router.navigateByUrl('/')
+  // }
 
 }

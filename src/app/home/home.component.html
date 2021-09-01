@@ -1,18 +1,25 @@
-<div class="container mt-5">
-    <div *ngIf="!registerMode" style='text-align: center;'>
-        <h1>Find your match</h1>
-        <p class="lead">Come on in to view your matches... all you need to do is sign up!</p>
-        <div class="text-center">
-            <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
-            <button class="btn btn-info btn-lg">Learn more</button>
-        </div>
+<form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" (ngSubmit)="login()">
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input 
+      name="username"
+      [(ngModel)]="model.username"
+      class="form-control mr-sm-2" 
+      type="text" 
+      placeholder="Username">
     </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input 
+      name="password"
+      [(ngModel)]="model.password"
+      class="form-control mr-sm-2" 
+      type="password" 
+      placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 
-    <div *ngIf="registerMode" class="container">
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <app-register (cancelRegister)="cancelRegisterMode($event)" ></app-register>
-            </div>
-        </div>
-    </div>
-</div>
+  <form *ngIf="(accountService.currentUser$ | async)" #loginForm="ngForm" (ngSubmit)="login()">
+    <label>You are logged in....</label>     
+  </form>
