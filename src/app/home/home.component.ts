@@ -8,7 +8,6 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  //registerMode = false;
   model: any = {}
 
   constructor(public accountService: AccountService, private router: Router) { }
@@ -19,15 +18,7 @@ export class HomeComponent implements OnInit {
 
   login() {
     this.accountService.login(this.model).subscribe(response => {
-      this.router.navigateByUrl('/main');
+      this.router.navigateByUrl('/');
     })
   }
-
-  // logout() {
-  //   this.accountService.logout();
-  //   this.model.username = "";
-  //   this.model.password = "";
-  //   this.router.navigateByUrl('/')
-  // }
-
 }

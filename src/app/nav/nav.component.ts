@@ -15,7 +15,6 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    let foo = this.accountService;
 
   }
 

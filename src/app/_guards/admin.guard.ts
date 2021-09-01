@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { AccountService } from '../_services/account.service';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private accountService: AccountService, private toastr: ToastrService) { }
+  constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router) { }
 
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
@@ -17,7 +17,8 @@ export class AdminGuard implements CanActivate {
         if (user.roles.includes('Admin') || user.roles.includes('Moderator')) {
           return true;
         }
-        this.toastr.error('You cannot enter this area');
+        this.toastr.error('You are not authorized to enter that area.');
+        this.router.navigateByUrl('/')
       })
     )
   }
